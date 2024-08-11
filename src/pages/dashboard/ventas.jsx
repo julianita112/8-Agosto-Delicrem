@@ -345,114 +345,124 @@ export function Ventas() {
   }
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   return (
     <>
       <div className="relative mt-2 h-32 w-full overflow-hidden rounded-xl bg-[url('/img/background-image.png')] bg-cover bg-center">
         <div className="absolute inset-0 h-full w-full bg-gray-900/75" />
       </div>
-      <Card className="mx-3 -mt-16 mb-6 lg:mx-4 border border-blue-gray-100">
-        <CardBody className="p-4">
-          <Button onClick={handleCreate} className="btnagregar" size="sm" startIcon={<PlusIcon />}>
-            Crear Venta
-          </Button>
-          <div className="mb-6">
-            <Input
-              type="text"
-              placeholder="Buscar por cliente"
-              value={search}
-              onChange={handleSearchChange}
-            />
-            <div className="mt-4 flex gap-4">
+      <div className="flex">
+        <Card className="flex-1 mx-3 -mt-16 mb-6 lg:mx-4 border border-blue-gray-100">
+          <CardBody className="p-4">
+            <Button onClick={handleCreate} className="btnagregar" size="sm" startIcon={<PlusIcon />}>
+              Crear Venta
+            </Button>
+            <div className="mb-6">
               <Input
-                type="date"
-                label="Fecha Inicio"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
+                type="text"
+                placeholder="Buscar por cliente"
+                value={search}
+                onChange={handleSearchChange}
               />
-              <Input
-                type="date"
-                label="Fecha Fin"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-              />
+              <div className="mt-4 flex gap-4">
+                <Input
+                  type="date"
+                  label="Fecha Inicio"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
+                <Input
+                  type="date"
+                  label="Fecha Fin"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                />
+              </div>
             </div>
-          </div>
-
-          <div className="mb-1">
-            <Typography variant="h6" color="blue-gray" className="mb-4">
-              Lista de Ventas
-            </Typography>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      CLIENTE
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      FECHA DE VENTA
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      ESTADO
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      ACTIVO
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      ACCIONES
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {currentVentas.map((venta) => (
-                    <tr key={venta.id_venta}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {venta.cliente.nombre}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {venta.fecha_venta.split('T')[0]}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {venta.estado}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <Switch
-                          checked={venta.activo}
-                          onChange={(e) => handleToggleActivo(venta.id_venta, e.target.checked)}
-                          color={venta.activo ? 'green' : 'red'}
-                        />
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-2">
-                        <IconButton className="btnvisualizar" size="sm" onClick={() => handleViewDetails(venta)}>
-                          <EyeIcon className="h-5 w-5" />
-                        </IconButton>
-                        <IconButton className="btnedit" size="sm" onClick={() => handleUpdateState(venta.id_venta)}>
-                          <PencilIcon className="h-5 w-5" />
-                        </IconButton>
-                      </td>
+  
+            <div className="mb-1">
+              <Typography variant="h6" color="blue-gray" className="mb-4">
+                Lista de Ventas
+              </Typography>
+              <div className="overflow-y-auto max-h-96">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        CLIENTE
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        FECHA DE VENTA
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        ESTADO
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        ACTIVO
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        ACCIONES
+                      </th>
                     </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {currentVentas.map((venta) => (
+                      <tr key={venta.id_venta}>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {venta.cliente.nombre}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {venta.fecha_venta.split('T')[0]}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {venta.estado}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <Switch
+                            checked={venta.activo}
+                            onChange={(e) => handleToggleActivo(venta.id_venta, e.target.checked)}
+                            color={venta.activo ? 'green' : 'red'}
+                          />
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-2">
+                          <IconButton className="btnvisualizar" size="sm" onClick={() => handleViewDetails(venta)}>
+                            <EyeIcon className="h-5 w-5" />
+                          </IconButton>
+                          <IconButton className="btnedit" size="sm" onClick={() => handleUpdateState(venta.id_venta)}>
+                            <PencilIcon className="h-5 w-5" />
+                          </IconButton>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-4">
+                <ul className="flex justify-center items-center space-x-2">
+                  {pageNumbers.map((number) => (
+                    <Button
+                      key={number}
+                      onClick={() => paginate(number)}
+                      className={`pagination ${number === currentPage ? 'active' : ''}`}
+                      size="sm"
+                    >
+                      {number}
+                    </Button>
                   ))}
-                </tbody>
-              </table>
+                </ul>
+              </div>
             </div>
-            <div className="mt-4">
-              <ul className="flex justify-center items-center space-x-2">
-                {pageNumbers.map((number) => (
-                  <Button
-                    key={number}
-                    onClick={() => paginate(number)}
-                    className={`pagination ${number === currentPage ? 'active' : ''}`}
-                    size="sm"
-                  >
-                    {number}
-                  </Button>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </CardBody>
-      </Card>
+          </CardBody>
+        </Card>
+  
+        <div style={{ width: '400px' }} className="p-4 bg-white rounded-lg mx-4 -mt-16 mb-6 lg:mx-4 border border-blue-gray-100 relative z-10">
+  {/* Puedes añadir contenido aquí si es necesario */}
+</div>
+      </div>
+    
+  
+  
+    
+  
 
       <Dialog open={open} handler={handleOpen} className="custom-modal max-w-4xl">
         <DialogHeader className="text-black p-2 text-lg">Crear Venta</DialogHeader>
